@@ -250,7 +250,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/22/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/22/Symbol/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -272,8 +272,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/22/hello-world/" itemprop="url">
-                  Hello World
+                <a class="post-title-link" href="/2017/04/22/Symbol/" itemprop="url">
+                  Untitled
                 </a>
               
             
@@ -289,7 +289,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-22T17:21:35+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-22T17:39:14+08:00">
                 2017-04-22
               </time>
             
@@ -326,15 +326,42 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+            <p>1.如果传给symbol的参数是一个object对象的话，就会调用该对象的toString方法，将其转为字符串，然后才生成一个 Symbol 值。</p>
+<pre><code>const obj = {
+    toString() {
+    return &apos;abc&apos;;
+ }
+};
+const sym = Symbol(obj);
+sym // Symbol(abc)
+</code></pre><p>注意，Symbol函数的参数只是表示对当前Symbol值的描述，因此相同参数的Symbol函数的返回值是不相等的。</p>
+<pre><code>// 没有参数的情况
+var s1 = Symbol();
+var s2 = Symbol();
+s1 === s2 // false
+// 有参数的情况
+var s1 = Symbol(&apos;foo&apos;);
+var s2 = Symbol(&apos;foo&apos;);
+s1 === s2 // false
+</code></pre><p>注意，Symbol值作为对象属性名时，不能用点运算符。</p>
+<pre><code>var mySymbol = Symbol();
+var a = {};
+a.mySymbol = &apos;Hello!&apos;;
+a[mySymbol] // undefined
+a[&apos;mySymbol&apos;] // &quot;Hello!&quot;
+</code></pre><p>原因: 上面代码中，因为点运算符后面总是字符串，所以不会读取mySymbol作为标识名所指代的那个值，导致a的属性名实际上是一个字符串，而不是一个Symbol值。</p>
+<p>注意: Symbol 作为属性名，该属性不会出现在for…in、for…of循环中，也不会被Object.keys()、Object.getOwnPropertyNames()、JSON.stringify()返回。但是，它也不是私有属性，有一个Object.getOwnPropertySymbols方法，可以获取指定对象的所有 Symbol 属性名。</p>
+<p>新的概念: 模块的singleton模式</p>
+<p>Singleton模式指的是调用一个类，任何时候返回的都是同一个实例。</p>
+<pre><code>// mod.js
+function A() {
+this.foo = &apos;hello&apos;;
+}
+if (!global._foo) {
+    global._foo = new A();
+}
+module.exports = global._foo;
+</code></pre><p>即可达到</p>
 
           
         
@@ -422,6 +449,15 @@
 
           
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
           
 
         </nav>

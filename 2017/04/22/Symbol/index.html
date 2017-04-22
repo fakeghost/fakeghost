@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="symbol," />
 
 
 
@@ -90,12 +90,17 @@
 
 
 
-<meta property="og:type" content="website">
+<meta name="description" content="1.如果传给symbol的参数是一个object对象的话，就会调用该对象的toString方法，将其转为字符串，然后才生成一个 Symbol 值。 const obj = {     toString() {     return &amp;apos;abc&amp;apos;;  } }; const sym = Symbol(obj); sym // Symbol(abc) 注意，Symbol函数的参数只是表">
+<meta name="keywords" content="symbol">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/04/22/Symbol/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.如果传给symbol的参数是一个object对象的话，就会调用该对象的toString方法，将其转为字符串，然后才生成一个 Symbol 值。 const obj = {     toString() {     return &amp;apos;abc&amp;apos;;  } }; const sym = Symbol(obj); sym // Symbol(abc) 注意，Symbol函数的参数只是表">
+<meta property="og:updated_time" content="2017-04-22T09:55:09.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="1.如果传给symbol的参数是一个object对象的话，就会调用该对象的toString方法，将其转为字符串，然后才生成一个 Symbol 值。 const obj = {     toString() {     return &amp;apos;abc&amp;apos;;  } }; const sym = Symbol(obj); sym // Symbol(abc) 注意，Symbol函数的参数只是表">
 
 
 
@@ -123,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/22/Symbol/"/>
 
 
 
 
 
-  <title>Archive | Hexo</title>
+  <title> | Hexo</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -154,7 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -238,66 +243,174 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      Um..! 1 post. Keep on posting.
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/22/Symbol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-22T17:39:14+08:00">
+                2017-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <p>1.如果传给symbol的参数是一个object对象的话，就会调用该对象的toString方法，将其转为字符串，然后才生成一个 Symbol 值。</p>
+<pre><code>const obj = {
+    toString() {
+    return &apos;abc&apos;;
+ }
+};
+const sym = Symbol(obj);
+sym // Symbol(abc)
+</code></pre><p>注意，Symbol函数的参数只是表示对当前Symbol值的描述，因此相同参数的Symbol函数的返回值是不相等的。</p>
+<pre><code>// 没有参数的情况
+var s1 = Symbol();
+var s2 = Symbol();
+s1 === s2 // false
+// 有参数的情况
+var s1 = Symbol(&apos;foo&apos;);
+var s2 = Symbol(&apos;foo&apos;);
+s1 === s2 // false
+</code></pre><p>注意，Symbol值作为对象属性名时，不能用点运算符。</p>
+<pre><code>var mySymbol = Symbol();
+var a = {};
+a.mySymbol = &apos;Hello!&apos;;
+a[mySymbol] // undefined
+a[&apos;mySymbol&apos;] // &quot;Hello!&quot;
+</code></pre><p>原因: 上面代码中，因为点运算符后面总是字符串，所以不会读取mySymbol作为标识名所指代的那个值，导致a的属性名实际上是一个字符串，而不是一个Symbol值。</p>
+<p>注意: Symbol 作为属性名，该属性不会出现在for…in、for…of循环中，也不会被Object.keys()、Object.getOwnPropertyNames()、JSON.stringify()返回。但是，它也不是私有属性，有一个Object.getOwnPropertySymbols方法，可以获取指定对象的所有 Symbol 属性名。</p>
+<p>新的概念: 模块的singleton模式</p>
+<p>Singleton模式指的是调用一个类，任何时候返回的都是同一个实例。</p>
+<pre><code>// mod.js
+function A() {
+this.foo = &apos;hello&apos;;
+}
+if (!global._foo) {
+    global._foo = new A();
+}
+module.exports = global._foo;
+</code></pre><p>即可达到</p>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/symbol/" rel="tag"># symbol</a>
+          
         </div>
       
+
+      
+        
       
 
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/04/22/Symbol/" itemprop="url">
-              
-                <span itemprop="name">Untitled</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-04-22T17:39:14+08:00"
-              content="2017-04-22" >
-          04-22
-        </time>
-      </div>
-
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -305,6 +418,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -491,11 +608,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   
